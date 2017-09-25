@@ -11,6 +11,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,9 +35,14 @@ public class XmlTask {
 
     public List<Reader> negligentReaders()//возвращающий список читателей – должников (у
     // которых книга на руках уже более 2-х недель).
-
     {
-        return negligentReaders();
+        List<Reader> list = new ArrayList<>();
+        NodeList nodeList = document.getElementsByTagName("reader");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Element element = (Element) nodeList.item(i);
+            //if ((LocalDateTime)(element.getElementsByTagName("data").item(0).getTextContent()))
+        }
+        return list;
     }
 
     public void removeBook (Reader reader, Book book)//удаляющий запись о книге у заданного читателя.
@@ -44,10 +51,24 @@ public class XmlTask {
 
     }
 
-    public void addBook (Reader reader, Book book)//добавляющий запись о книге заданному читателю.
+    public void addBook (Reader reader, Book book) throws Exception
+    //добавляющий запись о книге заданному читателю.
     //Записывает результат в этот же xml-документ.
     {
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+       // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
+        //initialize StreamResult with File object to save to file
+        StreamResult result = new StreamResult(new StringWriter());
+        DOMSource source = new DOMSource(document);
+        transformer.transform(source, result);
+
+        String xmlString = result.getWriter().toString();
+        System.out.println(xmlString);
+
+        PrintWriter output = new PrintWriter("Checks.xml");
+        output.println(xmlString);
+        output.close();
     }
 
     public List<Book> listOfBooksSetReader()//возвращает
@@ -55,5 +76,17 @@ public class XmlTask {
 
     {
         return listOfBooksSetReader();
+    }
+
+    private void saveTransformXML() throws TransformException {
+        try {
+            Transformer transformer = TransformerFactory.newInstance()
+                    .newTransformer();
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File(filePath));
+            transformer.transform(source, result);
+        } catch (TransformerConfigurationException ex) {
+        } catch (TransformerException ex) {
+        }
     }
 }

@@ -1,15 +1,17 @@
 package PO52.Myhytdinov.wdad.learn.xml;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by myhytdinov on 25.09.2017.
  */
 public class Book {
     private Author author;
     private String name;
-    private String printYear;
-    private String genre;
+    private LocalDateTime printYear;//год печати
+    private String genre;//жанр
 
-    public Book(Author author, String name, String printYear, String genre) {
+    public Book(Author author, String name, LocalDateTime printYear, String genre) {
         this.author = author;
         this.name = name;
         this.printYear = printYear;
@@ -24,7 +26,7 @@ public class Book {
         return name;
     }
 
-    public String getPrintYear() {
+    public LocalDateTime getPrintYear() {
         return printYear;
     }
 
@@ -40,7 +42,7 @@ public class Book {
         this.name = name;
     }
 
-    public void setPrintYear(String printYear) {
+    public void setPrintYear(LocalDateTime printYear) {
         this.printYear = printYear;
     }
 

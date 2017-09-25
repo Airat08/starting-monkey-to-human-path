@@ -1,31 +1,31 @@
 package PO52.Myhytdinov.wdad.learn.xml;
-
+import java.time.LocalDateTime;
 /**
  * Created by myhytdinov on 25.09.2017.
  */
 public class Reader {
-    private String firstName;
-    private String secondName;
+    private Book book;
+    private LocalDateTime data;
 
-    public Reader(String firstName, String secondName) {
-        this.firstName = firstName;
-        this.secondName = secondName;
+    public Reader(Book book, LocalDateTime data) {
+        this.book = book;
+        this.data = data;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Book getBook() {
+        return book;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public LocalDateTime getData() {
+        return data;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setData(LocalDateTime data) {
+        this.data = data;
     }
 }
 
