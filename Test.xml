@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML -->
+<library>
+    <reader firstname="Aleksander" secondname="Chumavoy">
+        <book>
+            <autor>
+                <firstname>Djordj</firstname>
+                <secondname>Oruell</secondname>
+            </autor>
+            <name>1984</name>
+            <printyear>1948</printyear>
+            <genre value="novel"> </genre>
+            <takedate day = "16" month = "7" year = "2016"> </takedate>
+        </book>
+    </reader>
+    <reader firstname="Alecksey" secondname="Bugai">
+        <book>
+            <autor>
+                <firstname>Aleksander</firstname>
+                <secondname>Pushkin</secondname>
+            </autor>
+            <name>Master and Margarita</name>
+            <printyear>1833</printyear>
+            <genre value="novel"> </genre>
+            <takedate day = "9" month = "8" year = "2016"> </takedate>
+        </book>
+        <book>
+            <autor>
+                <firstname>Nikolay</firstname>
+                <secondname>Nosov</secondname>
+            </autor>
+            <name>Neznayka</name>
+            <printyear>1992</printyear>
+            <genre value="other"> </genre>
+            <takedate day = "9" month = "8" year = "2017"> </takedate>
+        </book>
+    </reader>
+</library >

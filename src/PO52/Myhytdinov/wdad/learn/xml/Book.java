@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 public class Book {
     private Author author;
     private String name;
-    private LocalDateTime printYear;//год печати
+    private int printYear;//год печати
     private String genre;//жанр
 
-    public Book(Author author, String name, LocalDateTime printYear, String genre) {
+    public Book(Author author, String name, int printYear, String genre) {
         this.author = author;
         this.name = name;
         this.printYear = printYear;
@@ -26,7 +26,7 @@ public class Book {
         return name;
     }
 
-    public LocalDateTime getPrintYear() {
+    public int getPrintYear() {
         return printYear;
     }
 
@@ -42,7 +42,7 @@ public class Book {
         this.name = name;
     }
 
-    public void setPrintYear(LocalDateTime printYear) {
+    public void setPrintYear(int printYear) {
         this.printYear = printYear;
     }
 

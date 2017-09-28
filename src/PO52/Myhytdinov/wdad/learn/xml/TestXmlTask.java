@@ -7,10 +7,9 @@ import java.time.LocalDateTime;
  */
 public class TestXmlTask {
     public static void main(String[] args) throws Exception {
-        XmlTask xmlDoc=new XmlTask("src\\firstTestXml.xml");
-        Author author = new Author("Мама","Чолли");
-        Reader reader = new Reader(new Book(author,"петух", LocalDateTime.now(),"Мультик"),LocalDateTime.now());
-        xmlDoc.addBook(reader,new Book(author,"петух", LocalDateTime.now(),"Мультик"));
+        XmlTask xmlDoc=new XmlTask("Test.xml");
+        xmlDoc.loadReaders();
+        System.out.println(xmlDoc.getReaders()[1].getData());
 
     }
 }
