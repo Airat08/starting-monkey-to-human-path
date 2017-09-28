@@ -8,8 +8,13 @@ import java.time.LocalDateTime;
 public class TestXmlTask {
     public static void main(String[] args) throws Exception {
         XmlTask xmlDoc=new XmlTask("Test.xml");
-        xmlDoc.loadReaders();
-        System.out.println(xmlDoc.getReaders()[1].getData());
 
+        Author author = new Author("Airat","Chumavoy");
+        LocalDateTime dateTime = LocalDateTime.of(2016,7,16,0,0);
+        Book book;
+        book = new Book(author,"алилуя",1998,"мультик",dateTime);
+        Reader reader = new Reader(null,"Aleksander","Chumavoy");
+
+        xmlDoc.addBook(reader,book);
     }
 }

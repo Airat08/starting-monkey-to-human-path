@@ -42,52 +42,97 @@ public class XmlTask {
     public List<Reader> negligentReaders()//возвращающий список читателей – должников (у
     // которых книга на руках уже более 2-х недель).
     {
+        loadReaders();
         List<Reader> list = new ArrayList<>();
-        /*NodeList nodeList  = document.getElementsByTagName("reader");
-        for (int i = 0; i < nodeList.getLength(); i++) {//количество читателей
+        LocalDateTime dateTime;
 
-            Element element = (Element) nodeList.item(i);//берем одного читателя
-            NodeList nodeList1 = element.getElementsByTagName("book");
+        for (int i = 0; i < readers.length; i++) {
 
-            for (int j = 0; j < nodeList1.getLength(); j++) {//кол-во книг у читателя
-                Element element1 = (Element) nodeList1.item(j);
-                Node node = element1.getElementsByTagName("year").item(0);
 
-                if (LocalDateTime.now().getDayOfYear()-Integer.parseInt(node.getTextContent())>0)
-                {
-
-                    list.add()
-                }
-            }
-        }*/
-
+        }
         return list;
     }
 
     public void removeBook (Reader reader, Book book)//удаляющий запись о книге у заданного читателя.
     //Записывает результат в этот же xml-документ.
     {
+        String forename;
+        String surname;
+        NodeList nodeListReaders = document.getElementsByTagName("reader");
+        for (int i = 0; i < nodeListReaders.getLength(); i++)
+        {
+            Element element = (Element) nodeListReaders.item(i);
+            forename = element.getAttribute("firstname").toString();
+            surname = element.getAttribute("secondname").toString();
 
+            if (forename.equals(reader.getFirstName()) &&
+                    surname.equals(reader.getSecondName())) {
+            }
+        }
     }
 
     public void addBook (Reader reader, Book book) throws Exception
     //добавляющий запись о книге заданному читателю.
     //Записывает результат в этот же xml-документ.
     {
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-       // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        String forename;
+        String surname;
+        NodeList nodeListReaders = document.getElementsByTagName("reader");
+        for (int i = 0; i < nodeListReaders.getLength(); i++)
+        {
+            Element element = (Element) nodeListReaders.item(i);
+            forename = element.getAttribute("firstname").toString();
+            surname = element.getAttribute("secondname").toString();
 
-        //initialize StreamResult with File object to save to file
-        StreamResult result = new StreamResult(new StringWriter());
-        DOMSource source = new DOMSource(document);
-        transformer.transform(source, result);
+            if (forename.equals(reader.getFirstName()) &&
+                    surname.equals(reader.getSecondName()))
+            {
+               Element bookk = document.createElement("book");
+               bookk.appendChild(bookk);
 
-        String xmlString = result.getWriter().toString();
-        System.out.println(xmlString);
+               Element autor = document.createElement("autor");
+               bookk.appendChild(autor);
 
-        PrintWriter output = new PrintWriter("Checks.xml");
-        output.println(xmlString);
-        output.close();
+               Element firstname = document.createElement("firstname");
+               autor.appendChild(firstname);
+               firstname.appendChild(document.createTextNode(book.getAuthor().getFirstName()));
+
+
+                Element secondname = document.createElement("secondname");
+                secondname.appendChild(document.createTextNode(book.getAuthor().getSecondName()));
+                autor.appendChild(secondname);
+
+                Element name = document.createElement("name");
+                name.appendChild(document.createTextNode(book.getName()));
+                bookk.appendChild(name);
+
+                Element printyear = document.createElement("printyear");
+                printyear.appendChild(document.createTextNode(String.valueOf(book.getPrintYear())));
+                bookk.appendChild(printyear);
+
+                Element genre = document.createElement("genre");
+                Attr attr = document.createAttribute("genre");
+                attr.setValue(book.getGenre());
+                genre.setAttributeNode(attr);
+                bookk.appendChild(genre);
+
+                Element takedate = document.createElement("takedate");
+                Attr day = document.createAttribute("day");
+                day.setValue(String.valueOf(book.getData().getDayOfMonth()));
+                takedate.setAttributeNode(day);
+
+                Attr month = document.createAttribute("month");
+                month.setValue(String.valueOf(book.getData().getMonthValue()));
+                takedate.setAttributeNode(month);
+
+                Attr year = document.createAttribute("year");
+                year.setValue(String.valueOf(book.getData().getYear()));
+                takedate.setAttributeNode(year);
+
+                bookk.appendChild(takedate);
+                saveTransformXML();
+            }
+        }
     }
 
     public List<Book> listOfBooksSetReader()//возвращает
@@ -109,7 +154,7 @@ public class XmlTask {
         }
     }
 
-    public void loadReaders()
+    private void loadReaders()
     {
         Book[] books;
         String firstname;
@@ -136,19 +181,21 @@ public class XmlTask {
                 Element genre = (Element) genres.item(0);
                 Element takedata = (Element) takedatas.item(0);
 
+                data = LocalDateTime.of(Integer.valueOf(takedata.getAttribute("year")),Integer.valueOf(takedata.getAttribute("month")),Integer.valueOf(takedata.getAttribute("day")),
+                        0,0);
                 books[j] = new Book(new Author(author.getElementsByTagName("firstname").item(0).getTextContent().toString(),
                         author.getElementsByTagName("secondname").item(0).getTextContent().toString()),
                         book.getElementsByTagName("name").item(0).getTextContent(),Integer.parseInt(book.getElementsByTagName("printyear").item(0).getTextContent().toString()),
-                        genre.getAttribute("value").toString());
-                data = LocalDateTime.of(Integer.valueOf(takedata.getAttribute("year")),Integer.valueOf(takedata.getAttribute("month")),Integer.valueOf(takedata.getAttribute("day")),
-                        0,0);
-                readers[i] = new Reader(books,firstname,secondname,data);
+                        genre.getAttribute("value").toString(),data);
+
+                readers[i] = new Reader(books,firstname,secondname);
             }
 
         }
     }
 
     public Reader[] getReaders() {
+        loadReaders();
         return readers;
     }
 }
