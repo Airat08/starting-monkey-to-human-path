@@ -15,6 +15,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,16 +45,29 @@ public class XmlTask {
     {
         loadReaders();
         List<Reader> list = new ArrayList<>();
-        LocalDateTime dateTime;
-
         for (int i = 0; i < readers.length; i++) {
-
-
+            for (int j = 0; j < readers[i].getBook().length; j++) {
+                if (getResult(LocalDate.now(),
+                        LocalDate.of(readers[i].getBook()[j].getData().getYear(),readers[i].getBook()[j].getData().getMonthValue(),readers[i].getBook()[j].getData().getDayOfMonth()))==true)
+                {
+                    list.add(readers[i]);
+                }
+            }
         }
         return list;
     }
 
-    public void removeBook (Reader reader, Book book)//удаляющий запись о книге у заданного читателя.
+    private boolean getResult(LocalDate firstDate, LocalDate secondDate) {//полная херь, но работает
+        Period period = Period.between(secondDate, firstDate);
+        //System.out.println(period.getYears() + "." + period.getMonths() + "." + period.getDays());
+        if (period.getYears()>0) return true;
+        else if (period.getYears()==0 && period.getMonths()>0) return true;
+        else if (period.getDays()==0 && period.getMonths()==0 && period.getDays()>14) return true;
+        return false;
+    }
+
+    public void removeBook (Reader reader, Book book) throws Exception
+    //удаляющий запись о книге у заданного читателя.
     //Записывает результат в этот же xml-документ.
     {
         String forename;
@@ -61,14 +75,27 @@ public class XmlTask {
         NodeList nodeListReaders = document.getElementsByTagName("reader");
         for (int i = 0; i < nodeListReaders.getLength(); i++)
         {
-            Element element = (Element) nodeListReaders.item(i);
-            forename = element.getAttribute("firstname").toString();
-            surname = element.getAttribute("secondname").toString();
+            Element readers = (Element) nodeListReaders.item(i);
+            forename = readers.getAttribute("firstname").toString();
+            surname = readers.getAttribute("secondname").toString();
 
-            if (forename.equals(reader.getFirstName()) &&
+            if (forename.equals(reader.getFirstName()) && //сравниваем имя и фамилие читателя с заданным
                     surname.equals(reader.getSecondName())) {
+                NodeList nodeListBook = readers.getElementsByTagName("book");
+                for (int j = 0; j < nodeListBook.getLength(); j++) {
+                    Element books = (Element) nodeListBook.item(j);
+                    NodeList nodeListAuthor = books.getElementsByTagName("autor");
+                    Element author = (Element) nodeListAuthor.item(0);
+                    if (book.getAuthor().getFirstName().equals(author.getElementsByTagName("firstname").item(0).getTextContent()) &&
+                            book.getAuthor().getSecondName().equals(author.getElementsByTagName("secondname").item(0).getTextContent()) &&
+                            book.getName().equals(books.getElementsByTagName("name").item(0).getTextContent()))
+                    {
+                        nodeListReaders.item(i).removeChild(books);
+                    }
+                }
             }
         }
+        saveTransformXML();
     }
 
     public void addBook (Reader reader, Book book) throws Exception
@@ -88,7 +115,7 @@ public class XmlTask {
                     surname.equals(reader.getSecondName()))
             {
                Element bookk = document.createElement("book");
-               bookk.appendChild(bookk);
+                element.appendChild(bookk);
 
                Element autor = document.createElement("autor");
                bookk.appendChild(autor);
@@ -135,11 +162,16 @@ public class XmlTask {
         }
     }
 
-    public List<Book> listOfBooksSetReader()//возвращает
+    public List<Book> listOfBooksSetReader(Reader reader)//возвращает
     //список книг заданного читателя, которые он должен был вернуть
 
     {
-        return listOfBooksSetReader();
+        List<Book> bookList = new ArrayList<>();
+        loadReaders();
+        for (int i = 0; i < reader.getBook().length; i++) {
+            bookList.add(reader.getBook()[i]);
+        }
+        return bookList;
     }
 
     private void saveTransformXML() throws TransformException {

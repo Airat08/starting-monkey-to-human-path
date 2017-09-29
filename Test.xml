@@ -8,20 +8,10 @@
             <name>1984</name>
             <printyear>1948</printyear>
             <genre value="novel"> </genre>
-            <takedate day="16" month="7" year="2016"> </takedate>
+            <takedate day="20" month="9" year="2017"> </takedate>
         </book>
     </reader>
     <reader firstname="Alecksey" secondname="Bugai">
-        <book>
-            <autor>
-                <firstname>Aleksander</firstname>
-                <secondname>Pushkin</secondname>
-            </autor>
-            <name>Master and Margarita</name>
-            <printyear>1833</printyear>
-            <genre value="novel"> </genre>
-            <takedate day="9" month="8" year="2016"> </takedate>
-        </book>
         <book>
             <autor>
                 <firstname>Nikolay</firstname>
@@ -32,5 +22,16 @@
             <genre value="other"> </genre>
             <takedate day="9" month="8" year="2017"> </takedate>
         </book>
+    
+    <book>
+        <autor>
+            <firstname>Aleksander</firstname>
+            <secondname>Pushkin</secondname>
+        </autor>
+        <name>Master and Margarita</name>
+        <printyear>1833</printyear>
+        <genre genre="novel"/>
+        <takedate day="9" month="8" year="2016"/>
+    </book>
     </reader>
 </library>
