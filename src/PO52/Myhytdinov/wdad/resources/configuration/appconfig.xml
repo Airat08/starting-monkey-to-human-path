@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><appconfig>
+    <rmi>
+        <server>
+            <registry>
+                <createregistry>Тест 2</createregistry>
+                <registryaddress>Тест 4</registryaddress>
+                <registryport>5</registryport>
+            </registry>
+        </server>
+        <client>
+            <policypath>Тест 3</policypath>
+            <usecodebaseonly>Тест 6</usecodebaseonly>
+        </client>
+        <classprovider>Тест 1</classprovider>
+    </rmi>
+</appconfig>
