@@ -7,11 +7,13 @@ public class Reader {
     private Book[] book;
     private String firstName;
     private String secondName;
+    private LocalDateTime takedate;
 
-    public Reader(Book[] book, String firstName, String secondName) {
+    public Reader(Book[] book, String firstName, String secondName, LocalDateTime takedate) {
         this.book = book;
         this.firstName = firstName;
         this.secondName = secondName;
+        this.takedate = takedate;
     }
 
     public Book[] getBook() {
@@ -38,5 +40,12 @@ public class Reader {
         this.secondName = secondName;
     }
 
+    public LocalDateTime getTakedate() {
+        return takedate;
+    }
+
+    public void setTakedate(LocalDateTime takedate) {
+        this.takedate = takedate;
+    }
 }
 
