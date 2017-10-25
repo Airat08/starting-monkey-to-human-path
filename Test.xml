@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML --><library>
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML <!DOCTYPE library SYSTEM "library.dtd">-->
+<library>
     <reader firstname="Aleksander" secondname="Chumavoy">
         <book>
             <autor>
