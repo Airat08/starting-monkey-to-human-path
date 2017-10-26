@@ -1,9 +1,10 @@
 package PO52.Myhytdinov.wdad.learn.xml;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 /**
  * Created by myhytdinov on 25.09.2017.
  */
-public class Reader {
+public class Reader implements Serializable {
     private Book[] book;
     private String firstName;
     private String secondName;

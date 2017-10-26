@@ -1,9 +1,11 @@
 package PO52.Myhytdinov.wdad.learn.xml;
 
+import java.io.Serializable;
+
 /**
  * Created by myhytdinov on 25.09.2017.
  */
-public class Author {
+public class Author implements Serializable {
     private String firstName;
     private String secondName;
 

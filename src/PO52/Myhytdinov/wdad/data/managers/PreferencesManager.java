@@ -3,6 +3,7 @@ package PO52.Myhytdinov.wdad.data.managers;
 import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,11 +34,12 @@ public class PreferencesManager {
             instance = new PreferencesManager();
         return instance;
     }
-    @Deprecated
+
     private Element getElement(String nameField) {
-        NodeList nodeList = doc.getElementsByTagName(nameField);
-        Element element = (Element) nodeList.item(0);
-        return element;
+        String[] field = nameField.split("\\.");
+        NodeList nodeList = doc.getElementsByTagName(field[field.length - 1]);
+        Node node = nodeList.item(0);
+        return (Element) node;
     }
     @Deprecated
     public String getCreateregistry() {
@@ -145,23 +147,33 @@ public class PreferencesManager {
 
         return prop;
     }
-    public void addBindedObject(String name, String className)
-    {
-        Element element=(Element) doc.createElement("bindedobject");
-        element.setAttribute("class",className);
-        element.setAttribute("name",name);
-        getElement("rmi").appendChild(element);
-    }
-     public void removeBindedObject(String name)
-    {
+
+
+    public void addBindedObject(String name, String className) {
         NodeList nodeList = doc.getElementsByTagName("bindedobject");
         Element element;
         for (int i = 0; i < nodeList.getLength(); i++) {
             element = (Element) nodeList.item(i);
-            if (element.getAttribute("name").equals(name))
-            {
+            if ((element.getAttribute("class").equals(className)) & (element.getAttribute("name").equals(name)))
+                return;
+        }
+
+        element = doc.createElement("bindedobject");
+        element.setAttribute("class", className);
+        element.setAttribute("name", name);
+        getElement("rmi").appendChild(element);
+        saveTransformXml();
+    }
+    public void removeBindedObject(String name) {
+        NodeList nodeList = doc.getElementsByTagName("bindedobject");
+        Element element;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            element = (Element) nodeList.item(i);
+
+            if (element.getAttribute("name").equals(name)) {
                 getElement("rmi").removeChild(element);
             }
         }
+        saveTransformXml();
     }
 }

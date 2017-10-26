@@ -1,11 +1,12 @@
 package PO52.Myhytdinov.wdad.learn.xml;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Created by myhytdinov on 25.09.2017.
  */
-public class Book {
+public class Book implements Serializable {
     private Author author;
     private String name;
     private int printYear;//год печати
