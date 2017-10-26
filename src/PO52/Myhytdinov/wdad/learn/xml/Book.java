@@ -22,28 +22,28 @@ public class Book {
         return author;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getPrintYear() {
-        return printYear;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public int getPrintYear() {
+        return printYear;
+    }
+
     public void setPrintYear(int printYear) {
         this.printYear = printYear;
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
     public void setGenre(String genre) {
