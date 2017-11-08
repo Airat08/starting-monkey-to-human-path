@@ -12,5 +12,12 @@ public class TestXmlTask {
         // xmlDoc.loadReaders();
         //System.out.println(xmlDoc.getReaders()[1].getData());
 
+        Author author = new Author("проверка1","проверка2");
+        LocalDateTime dateTime = LocalDateTime.of(2016,8,9,0,0);
+        Book book;
+
+        book = new Book(author,"Master and Margarita",1833,"novel");
+        // Reader reader = new Reader(null,"Alecksey","Bugai");
+        Reader[] readers = xmlDoc.getReaders();
     }
 }
