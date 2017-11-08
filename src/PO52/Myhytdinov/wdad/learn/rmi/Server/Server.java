@@ -1,8 +1,9 @@
-package PO52.Myhytdinov.wdad.learn.rmi;
+package PO52.Myhytdinov.wdad.learn.rmi.Server;
 
 import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
 import PO52.Myhytdinov.wdad.*;
-import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,8 +37,7 @@ public class Server {
         PreferencesManager prefManager = PreferencesManager.getInstance();
 
         Registry reg= LocateRegistry.createRegistry(Integer.parseInt(prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)));
-        reg.rebind("rmi://"+prefManager.getProperty(PreferencesConstantManager.REGISTRYADDRESS)+":"+
-                prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)+"/XmlDataManager", new XmlDataManagerImpl());
+        reg.rebind("XmlDataManager", new XmlDataManagerImpl());
         prefManager.addBindedObject("XmlDataManager",XmlDataManager.class.getCanonicalName());
         System.out.println("Running server");
     }

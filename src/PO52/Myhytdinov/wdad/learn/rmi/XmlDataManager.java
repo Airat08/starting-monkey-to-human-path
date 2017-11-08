@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface XmlDataManager extends Remote {
     List<Reader> negligentReaders() throws RemoteException, TransformException;
+    void addBook(Reader reader, Book book) throws  RemoteException, TransformException;
     void removeBook (Reader reader, Book book) throws RemoteException, TransformException;
-    void addBook (Reader reader, Book book) throws  RemoteException, TransformException;
     List<Book> listOfBooksSetReader(Reader reader) throws RemoteException, TransformException;
     HashMap<Book, Date> hashMap(Reader reader) throws RemoteException, TransformException;
 }
