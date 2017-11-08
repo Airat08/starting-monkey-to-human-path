@@ -47,5 +47,6 @@ public class Reader {
     public void setTakedate(LocalDateTime takedate) {
         this.takedate = takedate;
     }
+
 }
 
