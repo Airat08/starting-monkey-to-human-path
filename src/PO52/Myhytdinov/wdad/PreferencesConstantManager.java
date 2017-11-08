@@ -1,4 +1,4 @@
-package PO52.Myhytdinov.wdad.utils;
+package PO52.Myhytdinov.wdad;
 
 public interface PreferencesConstantManager {
     String CREATEREGISTRY="appconfig.rmi.server.registry.createregistry";

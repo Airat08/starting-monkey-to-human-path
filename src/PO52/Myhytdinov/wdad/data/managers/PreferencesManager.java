@@ -1,6 +1,6 @@
 package PO52.Myhytdinov.wdad.data.managers;
 
-import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,6 +16,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.Properties;
+import java.util.Enumeration;
 
 public class PreferencesManager {
     private static PreferencesManager instance;
@@ -35,11 +36,11 @@ public class PreferencesManager {
         return instance;
     }
 
+    @Deprecated
     private Element getElement(String nameField) {
-        String[] field = nameField.split("\\.");
-        NodeList nodeList = doc.getElementsByTagName(field[field.length - 1]);
-        Node node = nodeList.item(0);
-        return (Element) node;
+        NodeList nodeList = doc.getElementsByTagName(nameField);
+        Element element = (Element) nodeList.item(0);
+        return element;
     }
     @Deprecated
     public String getCreateregistry() {

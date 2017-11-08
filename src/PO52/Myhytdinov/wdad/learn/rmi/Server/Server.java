@@ -3,7 +3,7 @@ package PO52.Myhytdinov.wdad.learn.rmi.Server;
 import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
 import PO52.Myhytdinov.wdad.*;
 import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
-import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

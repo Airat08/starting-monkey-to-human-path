@@ -2,7 +2,7 @@ package PO52.Myhytdinov.wdad.learn.rmi.Client;
 
 import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
 import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
-import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;
 
 
 import java.rmi.registry.LocateRegistry;
