@@ -48,6 +48,7 @@ public class Reader implements Serializable {
     public void setTakedate(LocalDateTime takedate) {
         this.takedate = takedate;
     }
+
 }
 
 
