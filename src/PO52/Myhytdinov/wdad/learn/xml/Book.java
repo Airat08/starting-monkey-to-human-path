@@ -10,14 +10,12 @@ public class Book {
     private String name;
     private int printYear;//год печати
     private String genre;//жанр
-    private LocalDateTime data;
 
-    public Book(Author author, String name, int printYear, String genre, LocalDateTime data) {
+    public Book(Author author, String name, int printYear, String genre) {
         this.author = author;
         this.name = name;
         this.printYear = printYear;
         this.genre = genre;
-        this.data = data;
     }
 
     public Author getAuthor() {
