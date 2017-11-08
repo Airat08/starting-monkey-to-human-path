@@ -1,7 +1,8 @@
-package PO52.Myhytdinov.wdad.learn.rmi;
+package PO52.Myhytdinov.wdad.learn.rmi.Client;
 
 import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
-import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
