@@ -1,6 +1,8 @@
-package PO52.Myhytdinov.wdad.learn.xml;
+package PO52.Myhytdinov.wdad;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
 /**
  * Created by myhytdinov on 25.09.2017.
  */
@@ -48,7 +50,6 @@ public class Reader implements Serializable {
     public void setTakedate(LocalDateTime takedate) {
         this.takedate = takedate;
     }
-
 }
 
 

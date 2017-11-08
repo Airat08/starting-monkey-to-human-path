@@ -1,7 +1,6 @@
-package PO52.Myhytdinov.wdad.learn.xml;
+package PO52.Myhytdinov.wdad;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * Created by myhytdinov on 25.09.2017.
@@ -10,9 +9,9 @@ public class Book implements Serializable {
     private Author author;
     private String name;
     private int printYear;//год печати
-    private String genre;//жанр
+    private Enum genre;//жанр
 
-    public Book(Author author, String name, int printYear, String genre) {
+    public Book(Author author, String name, int printYear, Enum genre) {
         this.author = author;
         this.name = name;
         this.printYear = printYear;
@@ -43,11 +42,11 @@ public class Book implements Serializable {
         this.printYear = printYear;
     }
 
-    public String getGenre() {
+    public Enum getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Enum genre) {
         this.genre = genre;
     }
 }

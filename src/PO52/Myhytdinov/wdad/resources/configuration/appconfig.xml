@@ -2,15 +2,15 @@
     <rmi>
         <server>
             <registry>
-                <createregistry>Тест 2</createregistry>
-                <registryaddress>Тест 4</registryaddress>
-                <registryport>5</registryport>
+                <createregistry>yes</createregistry>
+                <registryaddress>localhost</registryaddress>
+                <registryport>1099</registryport>
             </registry>
         </server>
         <client>
-            <policypath>Тест 3</policypath>
-            <usecodebaseonly>Тест 6</usecodebaseonly>
+            <policypath>client.policy</policypath>
+            <usecodebaseonly>no</usecodebaseonly>
         </client>
-        <classprovider>Тест 1</classprovider>
-    </rmi>
+        <classprovider>myarena.ru</classprovider>
+    <bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="rmi://localhost:1099/XmlDataManager"/><bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="XmlDataManager"/></rmi>
 </appconfig>
