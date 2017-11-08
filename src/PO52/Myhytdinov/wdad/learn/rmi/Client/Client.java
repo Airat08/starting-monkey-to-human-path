@@ -1,10 +1,13 @@
-package PO52.Myhytdinov.wdad.learn.rmi.Client;
+package PO52.Myhytdinov.wdad.learn.rmi;
 
 import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
-import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
-import PO52.Myhytdinov.wdad.PreferencesConstantManager;
+import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
 
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
