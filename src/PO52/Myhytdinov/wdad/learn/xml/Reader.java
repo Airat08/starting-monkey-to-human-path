@@ -7,7 +7,6 @@ public class Reader {
     private Book[] book;
     private String firstName;
     private String secondName;
-
     private LocalDateTime takedate;
 
     public Reader(Book[] book, String firstName, String secondName, LocalDateTime takedate) {
@@ -39,6 +38,14 @@ public class Reader {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public LocalDateTime getTakedate() {
+        return takedate;
+    }
+
+    public void setTakedate(LocalDateTime takedate) {
+        this.takedate = takedate;
     }
 
 }
