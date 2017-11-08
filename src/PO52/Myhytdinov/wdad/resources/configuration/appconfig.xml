@@ -12,5 +12,5 @@
             <usecodebaseonly>no</usecodebaseonly>
         </client>
         <classprovider>myarena.ru</classprovider>
-        <bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="rmi://localhost:1099/XmlDataManager"/><bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="XmlDataManager"/></rmi>
+    <bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="rmi://localhost:1099/XmlDataManager"/><bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="XmlDataManager"/></rmi>
 </appconfig>
