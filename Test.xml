@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML <>-->
-        <!DOCTYPE library SYSTEM "library.dtd">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML <<!DOCTYPE library SYSTEM "library.dtd">>-->
 <library>
     <reader firstname="Aleksander" secondname="Chumavoy">
         <book>
@@ -11,7 +10,7 @@
             <printyear>1948</printyear>
             <genre value="novel"> </genre>
         </book>
-
+        <takedate day="20" month="9" year="2017"> </takedate>
     </reader>
     <reader firstname="Alecksey" secondname="Bugai">
         <book>
@@ -23,16 +22,16 @@
             <printyear>1992</printyear>
             <genre value="other"> </genre>
         </book>
-        <takedate day="9" month="8" year="2017"> </takedate>
-    <book>
-        <author>
-            <firstname>Aleksander</firstname>
-            <secondname>Pushkin</secondname>
-        </author>
-        <name>Master and Margarita</name>
-        <printyear>1833</printyear>
-        <genre value="novel"/>
-    </book>
+        <takedate day="19" month="8" year="2017"> </takedate>
+        <book>
+            <author>
+                <firstname>Aleksander</firstname>
+                <secondname>Pushkin</secondname>
+            </author>
+            <name>Master and Margarita</name>
+            <printyear>1833</printyear>
+            <genre value="novel"/>
+        </book>
         <takedate day="9" month="8" year="2016"/>
     </reader>
 </library>
