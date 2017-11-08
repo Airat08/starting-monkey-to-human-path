@@ -46,20 +46,14 @@ public class XmlTask {
         loadReaders();
         List<Reader> list = new ArrayList<>();
         for (int i = 0; i < readers.length; i++) {
-            for (int j = 0; j < readers[i].getBook().length; j++) {
-                if (getResult(LocalDate.now(),
-                        LocalDate.of(readers[i].getBook()[j].getData().getYear(),readers[i].getBook()[j].getData().getMonthValue(),readers[i].getBook()[j].getData().getDayOfMonth()))==true)
-                {
-                    list.add(readers[i]);
-                }
-            }
+            if (getResult(LocalDate.now(),readers[i].getTakedate().toLocalDate())==true)
+                list.add(readers[i]);
         }
         return list;
     }
 
-    private boolean getResult(LocalDate firstDate, LocalDate secondDate) {//полная херь, но работает
+    private boolean getResult(LocalDate firstDate, LocalDate secondDate) {
         Period period = Period.between(secondDate, firstDate);
-        //System.out.println(period.getYears() + "." + period.getMonths() + "." + period.getDays());
         if (period.getYears()>0) return true;
         else if (period.getYears()==0 && period.getMonths()>0) return true;
         else if (period.getDays()==0 && period.getMonths()==0 && period.getDays()>14) return true;
@@ -76,21 +70,24 @@ public class XmlTask {
         for (int i = 0; i < nodeListReaders.getLength(); i++)
         {
             Element readers = (Element) nodeListReaders.item(i);
-            forename = readers.getAttribute("firstname").toString();
-            surname = readers.getAttribute("secondname").toString();
+            forename = readers.getAttribute("firstname");
+            surname = readers.getAttribute("secondname");
 
             if (forename.equals(reader.getFirstName()) && //сравниваем имя и фамилие читателя с заданным
                     surname.equals(reader.getSecondName())) {
                 NodeList nodeListBook = readers.getElementsByTagName("book");
+                NodeList nodeListTakeDate = readers.getElementsByTagName("takedate");
                 for (int j = 0; j < nodeListBook.getLength(); j++) {
                     Element books = (Element) nodeListBook.item(j);
-                    NodeList nodeListAuthor = books.getElementsByTagName("autor");
+                    Element takedate = (Element)  nodeListTakeDate.item(j);
+                    NodeList nodeListAuthor = books.getElementsByTagName("author");
                     Element author = (Element) nodeListAuthor.item(0);
                     if (book.getAuthor().getFirstName().equals(author.getElementsByTagName("firstname").item(0).getTextContent()) &&
                             book.getAuthor().getSecondName().equals(author.getElementsByTagName("secondname").item(0).getTextContent()) &&
                             book.getName().equals(books.getElementsByTagName("name").item(0).getTextContent()))
                     {
                         nodeListReaders.item(i).removeChild(books);
+                        nodeListReaders.item(i).removeChild(takedate);
                     }
                 }
             }
@@ -108,21 +105,21 @@ public class XmlTask {
         for (int i = 0; i < nodeListReaders.getLength(); i++)
         {
             Element element = (Element) nodeListReaders.item(i);
-            forename = element.getAttribute("firstname").toString();
-            surname = element.getAttribute("secondname").toString();
+            forename = element.getAttribute("firstname");
+            surname = element.getAttribute("secondname");
 
             if (forename.equals(reader.getFirstName()) &&
                     surname.equals(reader.getSecondName()))
             {
-               Element bookk = document.createElement("book");
+                Element bookk = document.createElement("book");
                 element.appendChild(bookk);
 
-               Element autor = document.createElement("autor");
-               bookk.appendChild(autor);
+                Element autor = document.createElement("author");
+                bookk.appendChild(autor);
 
-               Element firstname = document.createElement("firstname");
-               autor.appendChild(firstname);
-               firstname.appendChild(document.createTextNode(book.getAuthor().getFirstName()));
+                Element firstname = document.createElement("firstname");
+                firstname.appendChild(document.createTextNode(book.getAuthor().getFirstName()));
+                autor.appendChild(firstname);
 
 
                 Element secondname = document.createElement("secondname");
@@ -138,25 +135,29 @@ public class XmlTask {
                 bookk.appendChild(printyear);
 
                 Element genre = document.createElement("genre");
-                Attr attr = document.createAttribute("genre");
+                Attr attr = document.createAttribute("value");
                 attr.setValue(book.getGenre());
                 genre.setAttributeNode(attr);
                 bookk.appendChild(genre);
 
                 Element takedate = document.createElement("takedate");
+
                 Attr day = document.createAttribute("day");
-                day.setValue(String.valueOf(book.getData().getDayOfMonth()));
+                day.setValue(String.valueOf(reader.getTakedate().getDayOfMonth()));
                 takedate.setAttributeNode(day);
 
+
                 Attr month = document.createAttribute("month");
-                month.setValue(String.valueOf(book.getData().getMonthValue()));
+                month.setValue(String.valueOf(reader.getTakedate().getMonthValue()));
                 takedate.setAttributeNode(month);
 
                 Attr year = document.createAttribute("year");
-                year.setValue(String.valueOf(book.getData().getYear()));
+                year.setValue(String.valueOf(reader.getTakedate().getYear()));
                 takedate.setAttributeNode(year);
 
-                bookk.appendChild(takedate);
+                element.appendChild(takedate);
+
+
                 saveTransformXML();
             }
         }
@@ -215,12 +216,12 @@ public class XmlTask {
 
                 data = LocalDateTime.of(Integer.valueOf(takedata.getAttribute("year")),Integer.valueOf(takedata.getAttribute("month")),Integer.valueOf(takedata.getAttribute("day")),
                         0,0);
-                books[j] = new Book(new Author(author.getElementsByTagName("firstname").item(0).getTextContent().toString(),
-                        author.getElementsByTagName("secondname").item(0).getTextContent().toString()),
-                        book.getElementsByTagName("name").item(0).getTextContent(),Integer.parseInt(book.getElementsByTagName("printyear").item(0).getTextContent().toString()),
-                        genre.getAttribute("value").toString(),data);
+                books[j] = new Book(new Author(author.getElementsByTagName("firstname").item(0).getTextContent(),
+                        author.getElementsByTagName("secondname").item(0).getTextContent()),
+                        book.getElementsByTagName("name").item(0).getTextContent(),Integer.parseInt(book.getElementsByTagName("printyear").item(0).getTextContent()),
+                        genre.getAttribute("value"),data);
 
-                readers[i] = new Reader(books,firstname,secondname);
+                readers[i] = new Reader(books,firstname,secondname,data);
             }
 
         }
