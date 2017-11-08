@@ -147,23 +147,33 @@ public class PreferencesManager {
 
         return prop;
     }
-    public void addBindedObject(String name, String className)
-    {
-        Element element=(Element) doc.createElement("bindedobject");
-        element.setAttribute("class",className);
-        element.setAttribute("name",name);
-        getElement("rmi").appendChild(element);
-    }
-     public void removeBindedObject(String name)
-    {
+
+
+    public void addBindedObject(String name, String className) {
         NodeList nodeList = doc.getElementsByTagName("bindedobject");
         Element element;
         for (int i = 0; i < nodeList.getLength(); i++) {
             element = (Element) nodeList.item(i);
-            if (element.getAttribute("name").equals(name))
-            {
+            if ((element.getAttribute("class").equals(className)) & (element.getAttribute("name").equals(name)))
+                return;
+        }
+
+        element = doc.createElement("bindedobject");
+        element.setAttribute("class", className);
+        element.setAttribute("name", name);
+        getElement("rmi").appendChild(element);
+        saveTransformXml();
+    }
+    public void removeBindedObject(String name) {
+        NodeList nodeList = doc.getElementsByTagName("bindedobject");
+        Element element;
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            element = (Element) nodeList.item(i);
+
+            if (element.getAttribute("name").equals(name)) {
                 getElement("rmi").removeChild(element);
             }
         }
+        saveTransformXml();
     }
 }
