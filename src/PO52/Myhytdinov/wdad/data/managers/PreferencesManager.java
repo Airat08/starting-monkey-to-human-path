@@ -16,17 +16,17 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.Properties;
-import java.util.Enumeration;
 
 public class PreferencesManager {
     private static PreferencesManager instance;
     private Document doc;
-    private static final String FILE_PATH = "src\\PO52\\Myhytdinov\\wdad\\resources\\configuration\\appconfig.xml";
+    private String FILE_PATH = "src\\PO52\\Myhytdinov\\wdad\\resources\\configuration\\appconfig.xml";
 
     private PreferencesManager() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         DocumentBuilder builder = factory.newDocumentBuilder();
+        if (new File(FILE_PATH).exists()==false) FILE_PATH="PO52\\Myhytdinov\\wdad\\resources\\configuration\\appconfig.xml";
         doc = builder.parse(new File(FILE_PATH));
     }
 
@@ -35,11 +35,12 @@ public class PreferencesManager {
             instance = new PreferencesManager();
         return instance;
     }
-    @Deprecated
+
     private Element getElement(String nameField) {
-        NodeList nodeList = doc.getElementsByTagName(nameField);
-        Element element = (Element) nodeList.item(0);
-        return element;
+        String[] field = nameField.split("\\.");
+        NodeList nodeList = doc.getElementsByTagName(field[field.length - 1]);
+        Node node = nodeList.item(0);
+        return (Element) node;
     }
     @Deprecated
     public String getCreateregistry() {
