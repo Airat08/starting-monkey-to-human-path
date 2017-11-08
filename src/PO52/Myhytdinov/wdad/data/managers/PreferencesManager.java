@@ -1,6 +1,6 @@
 package PO52.Myhytdinov.wdad.data.managers;
 
-import PO52.Myhytdinov.wdad.PreferencesConstantManager;;
+import PO52.Myhytdinov.wdad.PreferencesConstantManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -35,7 +35,6 @@ public class PreferencesManager {
             instance = new PreferencesManager();
         return instance;
     }
-
     @Deprecated
     private Element getElement(String nameField) {
         NodeList nodeList = doc.getElementsByTagName(nameField);
