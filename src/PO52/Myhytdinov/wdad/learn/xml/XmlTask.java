@@ -157,7 +157,6 @@ public class XmlTask {
 
                 element.appendChild(takedate);
 
-
                 saveTransformXML();
             }
         }
@@ -219,7 +218,7 @@ public class XmlTask {
                 books[j] = new Book(new Author(author.getElementsByTagName("firstname").item(0).getTextContent(),
                         author.getElementsByTagName("secondname").item(0).getTextContent()),
                         book.getElementsByTagName("name").item(0).getTextContent(),Integer.parseInt(book.getElementsByTagName("printyear").item(0).getTextContent()),
-                        genre.getAttribute("value"),data);
+                        genre.getAttribute("value"));
 
                 readers[i] = new Reader(books,firstname,secondname,data);
             }
