@@ -114,12 +114,12 @@ public class XmlTask {
                Element bookk = document.createElement("book");
                 element.appendChild(bookk);
 
-               Element autor = document.createElement("author");
-               bookk.appendChild(autor);
+                Element autor = document.createElement("author");
+                bookk.appendChild(autor);
 
-               Element firstname = document.createElement("firstname");
-               firstname.appendChild(document.createTextNode(book.getAuthor().getFirstName()));
-               autor.appendChild(firstname);
+                Element firstname = document.createElement("firstname");
+                firstname.appendChild(document.createTextNode(book.getAuthor().getFirstName()));
+                autor.appendChild(firstname);
 
 
                 Element secondname = document.createElement("secondname");

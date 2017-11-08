@@ -13,7 +13,8 @@ public class TestXmlTask {
         Author author = new Author("проверка1","проверка2");
         LocalDateTime dateTime = LocalDateTime.of(2016,8,9,0,0);
         Book book;
-        book = new Book(author,"трололо",1833,"novel");
+
+                book = new Book(author,"трололо",1833,"novel");
         Book[] books = new Book[1];
         books[0] = book;
         Reader reader = new Reader(books,"Alecksey","Bugai",dateTime);
