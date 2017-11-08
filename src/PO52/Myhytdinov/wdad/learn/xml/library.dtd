@@ -2,7 +2,7 @@
         <!ELEMENT library (reader*)>
         <!ELEMENT reader ((book, takedate)*)>
         <!ELEMENT book (author, name, printyear,
-                genre>
+                genre)>
         <!ELEMENT author (firstname,
                 secondname)>
         <!ELEMENT firstname (#PCDATA)>
