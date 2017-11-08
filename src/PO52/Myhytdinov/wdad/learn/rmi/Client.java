@@ -18,8 +18,7 @@ public class Client {
         PreferencesManager prefManager = PreferencesManager.getInstance();
 
         Registry reg= LocateRegistry.getRegistry(Integer.parseInt(prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)));
-        XmlDataManager x=(XmlDataManager)reg.lookup("rmi://"+prefManager.getProperty(PreferencesConstantManager.REGISTRYADDRESS)+":"+
-        prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)+"/XmlDataManager");
+        XmlDataManager x=(XmlDataManager)reg.lookup("XmlDataManager");
 
         System.out.println(x.negligentReaders().get(0).getFirstName());
     }

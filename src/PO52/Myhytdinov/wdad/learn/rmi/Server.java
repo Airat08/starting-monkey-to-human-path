@@ -36,8 +36,7 @@ public class Server {
         PreferencesManager prefManager = PreferencesManager.getInstance();
 
         Registry reg= LocateRegistry.createRegistry(Integer.parseInt(prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)));
-        reg.rebind("rmi://"+prefManager.getProperty(PreferencesConstantManager.REGISTRYADDRESS)+":"+
-                prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)+"/XmlDataManager", new XmlDataManagerImpl());
+        reg.rebind("XmlDataManager", new XmlDataManagerImpl());
         prefManager.addBindedObject("XmlDataManager",XmlDataManager.class.getCanonicalName());
         System.out.println("Running server");
     }
