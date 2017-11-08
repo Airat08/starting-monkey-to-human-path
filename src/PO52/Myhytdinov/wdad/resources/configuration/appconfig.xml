@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><appconfig>
+    <rmi>
+        <server>
+            <registry>
+                <createregistry>yes</createregistry>
+                <registryaddress>localhost</registryaddress>
+                <registryport>1099</registryport>
+            </registry>
+        </server>
+        <client>
+            <policypath>client.policy</policypath>
+            <usecodebaseonly>no</usecodebaseonly>
+        </client>
+        <classprovider>myarena.ru</classprovider>
+    <bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="rmi://localhost:1099/XmlDataManager"/><bindedobject class="PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager" name="XmlDataManager"/></rmi>
+</appconfig>

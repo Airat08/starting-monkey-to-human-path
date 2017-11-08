@@ -1,6 +1,13 @@
-package PO52.Myhytdinov.wdad.learn.xml;
-import com.sun.org.apache.regexp.internal.RE;
-import org.w3c.dom.*;
+package PO52.Myhytdinov.wdad.learn.rmi.Server;
+
+import PO52.Myhytdinov.wdad.data.managers.PreferencesManager;
+import PO52.Myhytdinov.wdad.*;
+import PO52.Myhytdinov.wdad.learn.rmi.XmlDataManager;
+import PO52.Myhytdinov.wdad.utils.PreferencesConstantManager;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javax.xml.crypto.dsig.TransformException;
 import javax.xml.parsers.DocumentBuilder;
@@ -11,38 +18,46 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.text.DateFormat;
+import java.io.File;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by myhytdinov on 25.09.2017.
- */
-public class XmlTask {
+public class Server {
+    public static void main(String[] args) throws Exception {
+        PreferencesManager prefManager = PreferencesManager.getInstance();
 
-    private final File xmlFile;
-    private String filePath;
+        Registry reg= LocateRegistry.createRegistry(Integer.parseInt(prefManager.getProperty(PreferencesConstantManager.REGISTRYPORT)));
+        reg.rebind("XmlDataManager", new XmlDataManagerImpl());
+        prefManager.addBindedObject("XmlDataManager",XmlDataManager.class.getCanonicalName());
+        System.out.println("Running server");
+    }
+}
+
+class XmlDataManagerImpl extends UnicastRemoteObject implements XmlDataManager {
+
     private Document document;
-    private Reader[] readers;
+    private  Reader[] readers;
+    public XmlDataManagerImpl() throws Exception {
 
-    public XmlTask(String filePath) throws Exception {
-        this.filePath = filePath;
-        xmlFile = new File(filePath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
         DocumentBuilder builder = factory.newDocumentBuilder();
-        document = builder.parse(xmlFile);
+        document = builder.parse(new File("Test.xml"));
         readers = new Reader[document.getElementsByTagName("reader").getLength()];
     }
 
-    public List<Reader> negligentReaders()//возвращающий список читателей – должников (у
-    // которых книга на руках уже более 2-х недель).
-    {
+    @Override
+    public List<Reader> negligentReaders() throws RemoteException, TransformException {
         loadReaders();
         List<Reader> list = new ArrayList<>();
         for (int i = 0; i < readers.length; i++) {
@@ -60,10 +75,8 @@ public class XmlTask {
         return false;
     }
 
-    public void removeBook (Reader reader, Book book) throws Exception
-    //удаляющий запись о книге у заданного читателя.
-    //Записывает результат в этот же xml-документ.
-    {
+    @Override
+    public void removeBook(Reader reader, Book book) throws RemoteException, TransformException {
         String forename;
         String surname;
         NodeList nodeListReaders = document.getElementsByTagName("reader");
@@ -95,10 +108,8 @@ public class XmlTask {
         saveTransformXML();
     }
 
-    public void addBook (Reader reader, Book book) throws Exception
-    //добавляющий запись о книге заданному читателю.
-    //Записывает результат в этот же xml-документ.
-    {
+    @Override
+    public void addBook(Reader reader, Book book) throws RemoteException, TransformException {
         String forename;
         String surname;
         NodeList nodeListReaders = document.getElementsByTagName("reader");
@@ -136,7 +147,7 @@ public class XmlTask {
 
                 Element genre = document.createElement("genre");
                 Attr attr = document.createAttribute("value");
-                attr.setValue(book.getGenre());
+                attr.setValue(book.getGenre().name());
                 genre.setAttributeNode(attr);
                 bookk.appendChild(genre);
 
@@ -162,10 +173,8 @@ public class XmlTask {
         }
     }
 
-    public List<Book> listOfBooksSetReader(Reader reader)//возвращает
-    //список книг заданного читателя, которые он должен был вернуть
-
-    {
+    @Override
+    public List<Book> listOfBooksSetReader(Reader reader) throws RemoteException, TransformException {
         List<Book> bookList = new ArrayList<>();
         loadReaders();
         for (int i = 0; i < reader.getBook().length; i++) {
@@ -179,11 +188,33 @@ public class XmlTask {
             Transformer transformer = TransformerFactory.newInstance()
                     .newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(filePath));
+            StreamResult result = new StreamResult(new File("\\starting-monkey-to-human-path\\src\\PO52\\Myhytdinov\\wdad\\learn\\rmi\\Server\\XmlDataStorage.xml"));
             transformer.transform(source, result);
         } catch (TransformerConfigurationException ex) {
         } catch (TransformerException ex) {
         }
+    }
+
+    @Override
+    public HashMap<Book, Date> hashMap(Reader reader) throws RemoteException, TransformException {
+        loadReaders();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date date;
+        HashMap<Book, Date> hashMap = new HashMap();//а вдруг у читателя 2 или 3 или более книг
+        for (int i = 0; i < readers.length; i++) {
+            if (readers[i].equals(reader)) {
+                try {
+                    date = format.parse(String.valueOf(reader.getTakedate().getDayOfMonth()) + "." +
+                            String.valueOf(reader.getTakedate().getMonthValue()) + "." + String.valueOf(reader.getTakedate().getYear()));
+                    hashMap.put(reader.getBook()[0], date);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return hashMap;
     }
 
     private void loadReaders()
@@ -215,19 +246,16 @@ public class XmlTask {
 
                 data = LocalDateTime.of(Integer.valueOf(takedata.getAttribute("year")),Integer.valueOf(takedata.getAttribute("month")),Integer.valueOf(takedata.getAttribute("day")),
                         0,0);
+
                 books[j] = new Book(new Author(author.getElementsByTagName("firstname").item(0).getTextContent(),
                         author.getElementsByTagName("secondname").item(0).getTextContent()),
                         book.getElementsByTagName("name").item(0).getTextContent(),Integer.parseInt(book.getElementsByTagName("printyear").item(0).getTextContent()),
-                        genre.getAttribute("value"));
+                         Genre.valueOf(genre.getAttribute("value")));
 
                 readers[i] = new Reader(books,firstname,secondname,data);
             }
 
         }
-    }
 
-    public Reader[] getReaders() {
-        loadReaders();
-        return readers;
     }
 }

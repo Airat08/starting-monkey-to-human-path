@@ -1,4 +1,4 @@
-package PO52.Myhytdinov.wdad.learn.xml;
+package PO52.Myhytdinov.wdad;
 
 import java.io.Serializable;
 
