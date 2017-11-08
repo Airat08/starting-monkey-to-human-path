@@ -52,11 +52,4 @@ public class Book {
         this.genre = genre;
     }
 
-    public LocalDateTime getData() {
-        return data;
-    }
-
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
 }

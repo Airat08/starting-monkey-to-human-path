@@ -8,10 +8,13 @@ public class Reader {
     private String firstName;
     private String secondName;
 
-    public Reader(Book[] book, String firstName, String secondName) {
+    private LocalDateTime takedate;
+
+    public Reader(Book[] book, String firstName, String secondName, LocalDateTime takedate) {
         this.book = book;
         this.firstName = firstName;
         this.secondName = secondName;
+        this.takedate = takedate;
     }
 
     public Book[] getBook() {

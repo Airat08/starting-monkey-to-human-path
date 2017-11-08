@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML <!DOCTYPE library SYSTEM "library.dtd">-->
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!--XML <>-->
+        <!DOCTYPE library SYSTEM "library.dtd">
 <library>
     <reader firstname="Aleksander" secondname="Chumavoy">
         <book>
-            <autor>
+            <author>
                 <firstname>Djordj</firstname>
                 <secondname>Oruell</secondname>
-            </autor>
+            </author>
             <name>1984</name>
             <printyear>1948</printyear>
             <genre value="novel"> </genre>
-            <takedate day="20" month="9" year="2017"> </takedate>
         </book>
+
     </reader>
     <reader firstname="Alecksey" secondname="Bugai">
         <book>
-            <autor>
+            <author>
                 <firstname>Nikolay</firstname>
                 <secondname>Nosov</secondname>
-            </autor>
+            </author>
             <name>Neznayka</name>
             <printyear>1992</printyear>
             <genre value="other"> </genre>
-            <takedate day="9" month="8" year="2017"> </takedate>
         </book>
-    
+        <takedate day="9" month="8" year="2017"> </takedate>
     <book>
-        <autor>
+        <author>
             <firstname>Aleksander</firstname>
             <secondname>Pushkin</secondname>
-        </autor>
+        </author>
         <name>Master and Margarita</name>
         <printyear>1833</printyear>
-        <genre genre="novel"/>
-        <takedate day="9" month="8" year="2016"/>
+        <genre value="novel"/>
     </book>
+        <takedate day="9" month="8" year="2016"/>
     </reader>
 </library>
